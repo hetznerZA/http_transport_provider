@@ -1,4 +1,4 @@
-# HttpTransportProvider
+# HttpTransportProvider [![Build Status](https://travis-ci.org/hetznerZA/http_transport_provider.svg?branch=master)](https://travis-ci.org/hetznerZA/http_transport_provider)
 
 ## Installation
 
