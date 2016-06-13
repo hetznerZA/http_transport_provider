@@ -1,9 +1,5 @@
 # HttpTransportProvider
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/http_transport_provider`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -21,8 +17,37 @@ Or install it yourself as:
     $ gem install http_transport_provider
 
 ## Usage
+The provider currently only supports GET & POST. 
 
-TODO: Write usage instructions here
+GET:
+```ruby
+message = {message = {'options' => {'http_verb' => 'GET'}}}
+htp = HttpTransportProvider.new('my_identifier')
+htp.send_message('http://localhost:3000', message)
+htp.receive_message
+```
+
+GET with parameters:
+```ruby
+message = { 'body' => {'id' => 1}, 'options' => {'http_verb' => 'GET'} }
+htp = HttpTransportProvider.new('my_identifier')
+htp.send_message('http://localhost:3000', message)
+htp.receive_message
+```
+
+POST:
+```ruby
+message = { 'body' => {'id' => 1}, 'options' => {'http_verb' => 'POST'} }
+htp = HttpTransportProvider.new('my_identifier')
+htp.send_message('http://localhost:3000', message)
+htp.receive_message
+```
+
+Basic Auth:
+```ruby
+message = {'options' => {'http_verb' => 'GET'},
+           'credentials' => {'username' => 'user', 'password' => 'secret'}}
+```
 
 ## Development
 
@@ -38,4 +63,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
