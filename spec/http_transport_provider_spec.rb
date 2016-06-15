@@ -115,8 +115,7 @@ describe HttpTransportProvider do
     end
 
     it "Given an invalid URI raise an error" do
-      pending
-      expect(false).to eql true
+      expect{htp.send_message({}, {'options' => {'http_verb' => "GET"}})}.to raise_error URI::InvalidURIError
     end
 
     it "Given a invalid message raise an error" do

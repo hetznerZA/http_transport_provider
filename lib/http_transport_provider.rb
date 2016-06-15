@@ -11,9 +11,9 @@ class HttpTransportProvider < SoarTransportApi::TransportAPI
   def send_message(uri, message)
     MessageValidation.valid?(message)
     uri = URI::parse uri
-    connection = connection(uri)
 
-    response = connection.request Request.build(uri, message['options']['http_verb'], message['body'], message['credentials'])
+    response = connection(uri).request Request.build(uri, message['options']['http_verb'], message['body'], message['credentials'])
+    
     @message_response.push(response)
     map_response_code_to_delivery_status(response.code)
   end
