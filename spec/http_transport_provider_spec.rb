@@ -77,7 +77,7 @@ describe HttpTransportProvider do
         stub_request(:get, "http://localhost:3000/").to_return(:status => 200, :body => "", :headers => {})
 
         #TODO: Bump soar_transport_api version to fix spelling mistake
-        expect(htp.send_message(uri, message)).to eql 'Delivered successfull'
+        expect(htp.send_message(uri, message)).to eql 'Delivered successful'
       end
 
       it "return 'Delivered failure'" do
