@@ -8,6 +8,7 @@ describe MessageValidation do
     end
   end
 
+  #TODO: ensure it's errors matches actual error raised
   context "Given an invalid message" do
     it "raise error MessageInvalidError if options eql ''" do
       message = {'options' => ''}
