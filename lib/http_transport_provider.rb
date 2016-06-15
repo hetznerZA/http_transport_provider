@@ -1,6 +1,9 @@
 require 'soar_transport_api'
 require 'uri'
 require 'net/http'
+require 'openssl'
+require 'http_transport_provider/request'
+require 'http_transport_provider/message_validation'
 
 class HttpTransportProvider < SoarTransportApi::TransportAPI
   def initialize(transport_identifier)
@@ -13,7 +16,7 @@ class HttpTransportProvider < SoarTransportApi::TransportAPI
     uri = URI::parse uri
 
     response = connection(uri).request Request.build(uri, message['options']['http_verb'], message['body'], message['credentials'])
-    
+
     @message_response.push(response)
     map_response_code_to_delivery_status(response.code)
   end
