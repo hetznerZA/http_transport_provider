@@ -14,6 +14,8 @@
         if params.nil? == false
           request.set_form_data(params)
         end
+      else
+        #TODO: raise error if can't match verb
       end
 
       if credentials.nil? == false

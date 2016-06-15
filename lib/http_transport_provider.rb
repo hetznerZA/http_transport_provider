@@ -9,12 +9,12 @@ class HttpTransportProvider < SoarTransportApi::TransportAPI
   end
 
   def send_message(uri, message)
+    MessageValidation.valid?(message)
     uri = URI::parse uri
     connection = connection(uri)
+
     response = connection.request Request.build(uri, message['options']['http_verb'], message['body'], message['credentials'])
-
     @message_response.push(response)
-
     map_response_code_to_delivery_status(response.code)
   end
 
@@ -24,6 +24,7 @@ class HttpTransportProvider < SoarTransportApi::TransportAPI
 
   private
   #TODO: connection pooling
+  #TODO: enable/disable verify_mode
   def connection(uri)
     connection = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE)
   end

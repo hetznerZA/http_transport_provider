@@ -115,13 +115,12 @@ describe HttpTransportProvider do
     end
 
     it "Given an invalid URI raise an error" do
-      pending('Raise correct error, not implemeted')
-      expect { htp.send_message(uri, message) }.to raise StandardError
+      pending
+      expect(false).to eql true
     end
 
     it "Given a invalid message raise an error" do
-      pending('Raise correct error, not implemeted')
-      expect { htp.send_message(uri, message) }.to raise StandardError
+      expect{htp.send_message(uri, {'body' => ''})}.to raise_error MessageInvalidError
     end
   end
 
