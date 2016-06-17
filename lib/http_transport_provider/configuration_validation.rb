@@ -9,7 +9,6 @@ module ConfigurationValidation
     valid_verbs = ['GET', 'POST']
     raise InvalidValueError if valid_verbs.include?(config['verb'].upcase) == false
 
-    #TODO: expand test to include credentails
     supported_config_keys = ['verb', 'credentials']
     config.each do |k,v|
       raise InvalidKeywordError if supported_config_keys.include?(k) == false

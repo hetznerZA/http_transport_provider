@@ -7,6 +7,11 @@ describe ConfigurationValidation do
         config = {'verb' => "GET"}
         expect(ConfigurationValidation.valid?(config)).to eql true
       end
+
+      it "remembers the config with credentials" do
+        config = {'verb' => "GET", 'credentials' => {'username' => 'user', 'password' => 'secret'}}
+        expect(ConfigurationValidation.valid?(config)).to eql true
+      end
     end
 
     context "Given a configuration without a verb" do
