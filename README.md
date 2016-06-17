@@ -17,36 +17,35 @@ Or install it yourself as:
     $ gem install http_transport_provider
 
 ## Usage
-The provider currently only supports GET & POST. 
+The provider currently only supports GET & POST.
 
 GET:
 ```ruby
-message = {message = {'options' => {'http_verb' => 'GET'}}}
 htp = HttpTransportProvider.new('my_identifier')
-htp.send_message('http://localhost:3000', message)
+htp.configure({'verb' => "GET")
+htp.send_message('http://localhost:3000', {'body' => {}})
 htp.receive_message
 ```
 
 GET with parameters:
 ```ruby
-message = { 'body' => {'id' => 1}, 'options' => {'http_verb' => 'GET'} }
 htp = HttpTransportProvider.new('my_identifier')
-htp.send_message('http://localhost:3000', message)
+htp.configure({'verb' => "GET")
+htp.send_message('http://localhost:3000', {'body' => {'id' => 1}})
 htp.receive_message
 ```
 
 POST:
 ```ruby
-message = { 'body' => {'id' => 1}, 'options' => {'http_verb' => 'POST'} }
 htp = HttpTransportProvider.new('my_identifier')
-htp.send_message('http://localhost:3000', message)
+htp.configure({'verb' => "POST")
+htp.send_message('http://localhost:3000', {'body' => {'id' => 1}})
 htp.receive_message
 ```
 
 Basic Auth:
 ```ruby
-message = {'options' => {'http_verb' => 'GET'},
-           'credentials' => {'username' => 'user', 'password' => 'secret'}}
+message = {'body' => {}, 'credentials' => {'username' => 'user', 'password' => 'secret'}}
 ```
 
 ## Development
