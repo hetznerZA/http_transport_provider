@@ -24,9 +24,8 @@ class HttpTransportProvider < SoarTransportApi::TransportAPI
     #TODO: Message validation
     uri = URI::parse uri
     raise NotConfigured if @configuration.nil?
-    #TODO: test if failure occurs
+
     request = Request.build(uri, @configuration, message['body'])
-    #, @configuration['credentials'] = {})
     response = connection(uri).request(request)
 
     @message_response.push(response)
@@ -38,9 +37,7 @@ class HttpTransportProvider < SoarTransportApi::TransportAPI
   end
 
   private
-  #TODO: connection pooling
   #TODO: enable/disable verify_mode
-  #TODO: should https config happen in configuration??
   def connection(uri)
     connection = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE)
   end
@@ -54,9 +51,12 @@ class HttpTransportProvider < SoarTransportApi::TransportAPI
       DELIVERY_REJECTED
     elsif code == '500'
       DELIVERY_FAILURE
-    else #TODO: 203 unkown,508 pending
-      #TODO: Perhaps add as constant to soar_transport_api gem
-      "Delivery status unkown" #should be unsupported
+    elsif code == '508'
+      DELIVERY_PENDING
+    elsif code == '208'
+      "Delivery status unkown"
+    else
+      "Delivery status unsupported"
     end
   end
 end

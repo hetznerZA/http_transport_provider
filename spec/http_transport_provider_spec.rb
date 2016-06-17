@@ -113,40 +113,47 @@ describe HttpTransportProvider do
 
         stub_request(:get, "http://localhost:3000/").to_return(:status => 200, :body => "", :headers => {})
 
-        #TODO: Bump soar_transport_api version to fix spelling mistake
         expect(htp.send_message(uri, message)).to eql 'Delivered successful'
       end
 
-      it "return 'Delivered failure'" do
+      it "return 'Delivery failure'" do
         htp.configure(get_config)
         stub_request(:get, "http://localhost:3000/").to_return(:status => 500, :body => "", :headers => {})
 
         expect(htp.send_message(uri, message)).to eql 'Delivery failure'
       end
 
-      it "return 'Delivered timeout'" do
+      it "return 'Delivery timeout'" do
         htp.configure(get_config)
         stub_request(:get, "http://localhost:3000/").to_return(:status => 408, :body => "", :headers => {})
 
         expect(htp.send_message(uri, message)).to eql 'Delivery timeout'
       end
 
-      it "return 'Delivered rejected'" do
+      it "return 'Delivery rejected'" do
         htp.configure(get_config)
          stub_request(:get, "http://localhost:3000/").to_return(:status => 401, :body => "", :headers => {})
 
         expect(htp.send_message(uri, message)).to eql 'Rejected for delivery'
       end
 
-      it "return 'Delivered pending'" do
-        pending
-        expect(htp.send_message(uri, message)).to eql 'Delivered pending'
+      it "return 'Delivery pending'" do
+        htp.configure(get_config)
+         stub_request(:get, "http://localhost:3000/").to_return(:status => 508, :body => "", :headers => {})
+
+        expect(htp.send_message(uri, message)).to eql 'Delivery pending'
       end
 
       it "return 'Unkown delivery status'" do
         htp.configure(get_config)
-        stub_request(:get, "http://localhost:3000/").to_return(:status => 1111, :body => "", :headers => {})
+        stub_request(:get, "http://localhost:3000/").to_return(:status => 208, :body => "", :headers => {})
         expect(htp.send_message(uri, message)).to eql 'Delivery status unkown'
+      end
+
+      it "return 'Delivery status unsupported'" do
+        htp.configure(get_config)
+        stub_request(:get, "http://localhost:3000/").to_return(:status => 1111, :body => "", :headers => {})
+        expect(htp.send_message(uri, message)).to eql 'Delivery status unsupported'
       end
     end
 
@@ -156,7 +163,8 @@ describe HttpTransportProvider do
 
     it "Given a invalid message raise an error" do
       pending('Todo')
-      expect{htp.send_message(uri, message)}.to raise_error Error
+      htp.configure(get_config)
+      expect{htp.send_message(uri, message)}.to raise_error StandardError
     end
   end
 
