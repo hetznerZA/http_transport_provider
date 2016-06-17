@@ -4,7 +4,6 @@ require 'net/http'
 require 'openssl'
 require 'http_transport_provider/configuration_validation'
 require 'http_transport_provider/request'
-require 'http_transport_provider/message_validation'
 
 class HttpTransportProvider < SoarTransportApi::TransportAPI
   class NotConfigured < StandardError; end
@@ -22,12 +21,9 @@ class HttpTransportProvider < SoarTransportApi::TransportAPI
 
 
   def send_message(uri, message)
-    #TODO: do we still need message validation
-    #TODO: can message value default to {'body' => {}}??
-    #MessageValidation.valid?(message)
+    #TODO: Message validation
     uri = URI::parse uri
     raise NotConfigured if @configuration.nil?
-    #TODO: what if @configuraiton not set
     #TODO: test if failure occurs
     request = Request.build(uri, @configuration, message['body'])
     #, @configuration['credentials'] = {})
