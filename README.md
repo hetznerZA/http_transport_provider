@@ -17,35 +17,37 @@ Or install it yourself as:
     $ gem install http_transport_provider
 
 ## Usage
-The provider currently only supports GET & POST.
+The provider currently only supports GET & POST. In these examples _'my_identifier'_ is the name you are giving your instance.
 
 GET:
 ```ruby
 htp = HttpTransportProvider.new('my_identifier')
-htp.configure({'verb' => "GET")
-htp.send_message('http://localhost:3000', {'body' => {}})
+htp.configure({'verb' => "GET"})
+htp.send_message('http://localhost:3000', {'params' => {'id' => 1}, body' => {}})
 htp.receive_message
 ```
 
 GET with parameters:
 ```ruby
 htp = HttpTransportProvider.new('my_identifier')
-htp.configure({'verb' => "GET")
-htp.send_message('http://localhost:3000', {'body' => {'id' => 1}})
+htp.configure({'verb' => "GET"})
+htp.send_message('http://localhost:3000', {'params' => {'id' => 1}, 'body' => {}})
 htp.receive_message
 ```
 
 POST:
 ```ruby
 htp = HttpTransportProvider.new('my_identifier')
-htp.configure({'verb' => "POST")
-htp.send_message('http://localhost:3000', {'body' => {'id' => 1}})
+htp.configure({'verb' => "POST"})
+htp.send_message('http://localhost:3000', {'body' => {'username' => 'Bob'}})
 htp.receive_message
 ```
 
 Basic Auth:
+
+To use basic authentication you provide the configuration with the user name and password in Hash identified as _'credentials'_.
 ```ruby
-message = {'body' => {}, 'credentials' => {'username' => 'user', 'password' => 'secret'}}
+htp.configure({'verb' => "GET", 'credentials' => {'username' => 'user', 'password' => 'secret'}})
 ```
 
 ## Development
