@@ -23,7 +23,7 @@ GET:
 ```ruby
 htp = HttpTransportProvider.new('my_identifier')
 htp.configure({'verb' => "GET"})
-htp.send_message('http://localhost:3000', {'params' => {'id' => 1}, body' => {}})
+htp.send_message('http://localhost:3000', 'body' => {'id' => 1})
 htp.receive_message
 ```
 
@@ -31,7 +31,7 @@ GET with parameters:
 ```ruby
 htp = HttpTransportProvider.new('my_identifier')
 htp.configure({'verb' => "GET"})
-htp.send_message('http://localhost:3000', {'params' => {'id' => 1}, 'body' => {}})
+htp.send_message('http://localhost:3000', 'body' => {})
 htp.receive_message
 ```
 
@@ -39,7 +39,7 @@ POST:
 ```ruby
 htp = HttpTransportProvider.new('my_identifier')
 htp.configure({'verb' => "POST"})
-htp.send_message('http://localhost:3000', {'body' => {'username' => 'Bob'}})
+htp.send_message('http://localhost:3000', 'body' => {'id' => 1})
 htp.receive_message
 ```
 
