@@ -44,9 +44,11 @@ htp.receive_message
 ```
 
 Basic Auth:
-
 ```ruby
-message = {'body' => {}, 'credentials' => {'username' => 'user', 'password' => 'secret'}}
+htp = HttpTransportProvider.new('my_identifier')
+htp.configure({'verb' => 'POST', 'credentials' => {'username' => 'user', 'password' => 'secret'}})
+htp.send_message('http://localhost:3000', 'body' => {'id' => 1})
+htp.receive_message
 ```
 
 ## Development
