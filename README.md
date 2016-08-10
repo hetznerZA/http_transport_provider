@@ -45,9 +45,8 @@ htp.receive_message
 
 Basic Auth:
 
-To use basic authentication you provide the configuration with the user name and password in Hash identified as _'credentials'_.
 ```ruby
-htp.configure({'verb' => "GET", 'credentials' => {'username' => 'user', 'password' => 'secret'}})
+message = {'body' => {}, 'credentials' => {'username' => 'user', 'password' => 'secret'}}
 ```
 
 ## Development
