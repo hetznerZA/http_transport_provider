@@ -65,13 +65,6 @@ describe HttpTransportProvider do
       it "GET without parameters" do
         htp.configure(get_config)
         stub_request(:get, uri)
-        puts "----------------"
-        puts uri.inspect
-        puts "----------------"
-         uri1 = URI::parse uri
-         puts uri1
-         puts uri1.path
-        puts "----------------"
         htp.send_message(uri, message)
       end
 
