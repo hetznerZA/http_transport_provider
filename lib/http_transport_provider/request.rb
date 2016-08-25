@@ -7,10 +7,24 @@
       if verb.upcase == 'GET'
         if params.empty? == false
           uri.query = URI.encode_www_form(params)
+          path = "#{uri.path}#{'?' + uri.query if uri.query}"
+        else
+          if uri.path == ''
+            path = '/'
+          else
+            path = uri.path
+          end
         end
-        request = Net::HTTP::Get.new uri
+
+        request = Net::HTTP::Get.new path
       elsif verb.upcase == 'POST'
-        request = Net::HTTP::Post.new(uri)
+        if uri.path != ''
+          path = uri.path
+        else
+          path = '/'
+        end
+
+        request = Net::HTTP::Post.new(path)
         if params.empty? == false
           request.set_form_data(params)
         end
