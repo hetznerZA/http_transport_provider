@@ -51,8 +51,8 @@ describe HttpTransportProvider do
       it "Allow Basic auth given credentials options" do
         htp.configure(get_config_with_credentials)
 
-        stub_request(:post, "http://localhost:3000/").
-        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Basic dXNlcjpzZWNyZXQ=', 'Host'=>'localhost:3000', 'User-Agent'=>'Ruby'}).
+        stub_request(:post, "http://localhost:3000").
+        with(:headers => {'Authorization'=>'Basic dXNlcjpzZWNyZXQ='}).
         to_return(:status => 200, :body => "", :headers => {})
 
         htp.send_message(uri, message_with_body)
@@ -65,6 +65,13 @@ describe HttpTransportProvider do
       it "GET without parameters" do
         htp.configure(get_config)
         stub_request(:get, uri)
+        puts "----------------"
+        puts uri.inspect
+        puts "----------------"
+         uri1 = URI::parse uri
+         puts uri1
+         puts uri1.path
+        puts "----------------"
         htp.send_message(uri, message)
       end
 
